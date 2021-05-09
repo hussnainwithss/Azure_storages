@@ -1,0 +1,30 @@
+{% if files %}
+<h1>
+    Container Name: {{container}}
+</h1>
+<h2>
+    List of Files 
+</h2>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Download files</button>
+    <label for="cars">Choose a Download Path:</label>
+    <select name='downloadPath'>
+        {% for path in download_paths %}
+        <option value="{{path.path}}">{{path.path}}</option>
+        {% endfor %}
+    </select>
+<ul id="files">
+    {% for file in files %}
+    <li>
+       <input type='checkbox' value='{{file.name}}' name='files'>
+       Name: {{file.name}} | last modified: {{file.last_modified}}
+    </li>
+    {% endfor %}
+
+</ul>
+</form>
+{% else %}
+    <h2>No Files in container!</h2>
+{% endif %}
+
