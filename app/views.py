@@ -9,7 +9,7 @@ from azure.storage.blob import BlobServiceClient,ContainerClient
 class Index(View):
     template_name = 'app/list_containers.html'
     def get(self,request):
-        if not request.session['conn_str']:
+        if not request.session.get('conn_str'):
             try:
                 conn_str = AzureAccessKey.objects.get(name='AZURE_STORAGE_CONNECTION_STRING').connection_string
                 request.session['conn_str'] = conn_str
